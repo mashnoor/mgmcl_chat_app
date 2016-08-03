@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="7dp"
+
+    tools:context="com.chat.chatapp.LoginActivity"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_height="wrap_content">
+
+        <EditText
+
+            android:id="@+id/etUserName"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:hint="Your Name"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etUserPhone"
+           android:gravity="center"
+
+            android:layout_width="match_parent"
+            android:hint="Your Phone"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:src="@drawable/no_image_selected_converted"
+        app:civ_border_width="2dp"
+
+        app:civ_border_color="#FF000000"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Capture Photo"
+        android:layout_gravity="center"
+        android:onClick="takephoto"
+        android:id="@+id/btnPhoto" />
+
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Join!"
+
+        android:onClick="join"/>
+
+
+</LinearLayout>
