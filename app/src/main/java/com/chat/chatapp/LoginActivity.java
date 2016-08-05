@@ -2,6 +2,7 @@ package com.chat.chatapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
+import com.applozic.mobicomkit.api.account.user.User;
+import com.applozic.mobicomkit.api.account.user.UserLoginTask;
+import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -115,6 +120,31 @@ public class LoginActivity extends Activity {
 
     }
 
+    private void addUser() {
+        UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
+
+            @Override
+            public void onSuccess(RegistrationResponse registrationResponse, Context context)
+            {
+                // After successful registration with Applozic server the callback will come here
+                ApplozicSetting.getInstance(context).showStartNewButton();//To show contact list.
+                //ApplozicSetting.getInstance(context).enableRegisteredUsersContactCall();//To enable the applozic Registered Users Contact Note:for disable that you can comment this line of code
+            }
+
+            @Override
+            public void onFailure(RegistrationResponse registrationResponse, Exception exception)
+            {
+                // If any failure in registration the callback  will come here
+            }};
+
+        User user = new User();
+        user.setUserId(user_phone.getText().toString().trim()); //userId it can be any unique user identifier
+        user.setDisplayName(user_name.getText().toString().trim()); //displayName is the name of the user which will be shown in chat messages
+
+        user.setImageLink(HelperClass.GET_IMAGE_FILE + user_phone.getText().toString().trim());//optional,pass your image link
+        new UserLoginTask(user, listener, this).execute((Void) null);
+    }
+
     private void sendAndAddUser() {
        // RequestParams userPhone = new RequestParams("user_phone", user_phone.getText().toString().trim());
         RequestParams params = new RequestParams();
@@ -129,7 +159,11 @@ public class LoginActivity extends Activity {
                 i.putExtra("user_phone", user_phone.getText().toString().trim());
                 dialog.dismiss();
                 startActivity(i);
+                addUser();
+
             }
+
+
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {

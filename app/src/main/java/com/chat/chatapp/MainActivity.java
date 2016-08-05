@@ -2,6 +2,7 @@ package com.chat.chatapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -18,6 +19,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.github.tamir7.contacts.Contact;
 import com.github.tamir7.contacts.Contacts;
 import com.github.tamir7.contacts.Query;
@@ -190,6 +193,10 @@ public class MainActivity extends Activity {
             super(context, 0, posts);
         }
 
+
+
+
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -198,6 +205,8 @@ public class MainActivity extends Activity {
             {
                 convertView = getLayoutInflater().inflate(R.layout.newsfeed, parent, false);
             }
+
+
 
 
             TextView username = (TextView) convertView.findViewById(R.id.tvUserName);
@@ -218,6 +227,17 @@ public class MainActivity extends Activity {
             final Button pauseBtn = (Button) convertView.findViewById(R.id.btnPause);
             final SeekBar bar = (SeekBar) convertView.findViewById(R.id.seekBar);
             final TextView pos = (TextView) convertView.findViewById(R.id.txtPos);
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+                    intent.putExtra(ConversationUIService.USER_ID, currpost.getUserPhone().trim());
+                    intent.putExtra(ConversationUIService.DISPLAY_NAME, currpost.getUserName().trim()); //put it for displaying the title.
+                    startActivity(intent);
+
+                }
+            });
 
 
             btn.setOnClickListener(new View.OnClickListener() {
@@ -278,6 +298,8 @@ public class MainActivity extends Activity {
 
 
             });
+
+
 
 
             return convertView;

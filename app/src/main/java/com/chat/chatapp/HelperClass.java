@@ -1,5 +1,8 @@
 package com.chat.chatapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by Menon on 7/24/16.
  */
@@ -21,5 +24,42 @@ public class HelperClass {
     final public static String UPLOAD_IMAGE= "http://192.168.0.160/addimage/";
 
 
+    public void saveName(Context context, String name)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE).edit();
+        editor.putString("username", name);
+
+        editor.apply();
+    }
+
+
+    public void savePhone(Context context, String phone)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE).edit();
+        editor.putString("userphone", phone);
+
+        editor.apply();
+    }
+
+    public String getName(Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE);
+
+
+            String name = prefs.getString("name", "NO");//"No name defined" is the default value.
+           return name;
+
+    }
+
+
+    public String getPhone(Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE);
+
+
+        String phone = prefs.getString("userphone", "NO");//"No name defined" is the default value.
+        return phone;
+
+    }
 
 }
