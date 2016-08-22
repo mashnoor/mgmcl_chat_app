@@ -44,8 +44,9 @@ dependencies {
     compile 'com.mani:ThinDownloadManager:1.2.5'
     compile 'com.sw926.imagefileselector:library:1.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.daasuu:BubbleLayout:1.1.1'
 
-    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:design:24.1.1'
     compile 'com.applozic.communication.uiwidget:mobicomkitui:4.53'
 
     compile 'net.gotev:uploadservice:3.0'
