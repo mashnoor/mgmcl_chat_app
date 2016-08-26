@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -48,6 +49,8 @@ dependencies {
 
     compile 'com.android.support:design:24.1.1'
     compile 'com.applozic.communication.uiwidget:mobicomkitui:4.53'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
     compile 'net.gotev:uploadservice:3.0'
     compile 'com.github.ugurcany:InfiniteListView:1.0.4'
