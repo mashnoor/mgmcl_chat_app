@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
     TextView curretnStatus;
 
 
+
     ArrayList<Post> posts;
      boolean record_mode_on = true;
 
