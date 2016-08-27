@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -33,7 +34,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.github.tamir7.contacts:contacts:1.0.2'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.github.HugoMatilla:AudioPlayerView:v1.0.1'
@@ -46,8 +47,10 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.daasuu:BubbleLayout:1.1.1'
 
-    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:design:24.2.0'
     compile 'com.applozic.communication.uiwidget:mobicomkitui:4.53'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
     compile 'net.gotev:uploadservice:3.0'
     compile 'com.github.ugurcany:InfiniteListView:1.0.4'

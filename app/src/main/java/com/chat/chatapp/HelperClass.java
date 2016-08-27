@@ -23,6 +23,8 @@ public class HelperClass {
 
     final public static String UPLOAD_IMAGE= "http://192.168.0.120/addimage/";
 
+    final public static String GET_FRIENDS = "http://192.168.0.120/getfriends/";
+
 
     public void saveName(Context context, String name)
     {
@@ -33,7 +35,7 @@ public class HelperClass {
     }
 
 
-    public void savePhone(Context context, String phone)
+    public static void savePhone(Context context, String phone)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE).edit();
         editor.putString("userphone", phone);
@@ -52,7 +54,7 @@ public class HelperClass {
     }
 
 
-    public String getPhone(Context context)
+    public static String getPhone(Context context)
     {
         SharedPreferences prefs = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE);
 

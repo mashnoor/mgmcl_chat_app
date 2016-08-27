@@ -159,6 +159,7 @@ public class LoginActivity extends Activity {
                 i.putExtra("user_phone", user_phone.getText().toString().trim());
                 dialog.dismiss();
                 startActivity(i);
+                HelperClass.savePhone(LoginActivity.this, user_phone.getText().toString().trim());
                 addUser();
 
             }

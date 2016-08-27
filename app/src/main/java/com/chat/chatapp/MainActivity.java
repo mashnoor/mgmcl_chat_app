@@ -40,16 +40,18 @@ import net.gotev.uploadservice.UploadNotificationConfig;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import nl.changer.audiowife.AudioWife;
-import wseemann.media.FFmpegMediaPlayer;
+
 
 public class MainActivity extends Activity {
 
@@ -61,9 +63,10 @@ public class MainActivity extends Activity {
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
     AsyncHttpClient client;
-    ListView newsFeedList;
-    Button record_btn;
-    TextView curretnStatus;
+    @BindView(R.id.newsfeedListView) ListView newsFeedList;
+    @BindView(R.id.btn_record) Button record_btn;
+    @BindView(R.id.txtStatus) TextView curretnStatus;
+
 
 
 
@@ -75,13 +78,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         myPhoneNumber = getIntent().getExtras().getString("user_phone");
        // showToast(myPhoneNumber);
         client = new AsyncHttpClient();
-        newsFeedList = (ListView) findViewById(R.id.newsfeedListView);
-        curretnStatus = (TextView) findViewById(R.id.txtStatus);
-
-        record_btn = (Button) findViewById(R.id.btn_record);
 
         posts = new ArrayList<Post>();
 
@@ -95,10 +95,6 @@ public class MainActivity extends Activity {
 
 
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
-
-
-
-
 
 
 
@@ -220,10 +216,6 @@ public class MainActivity extends Activity {
             Picasso.with(getApplicationContext()).load(HelperClass.GET_IMAGE_FILE + currpost.getUserPhone()).into(imageView);
 
 
-           //AudioPlayerView audioPlayerView = (AudioPlayerView) convertView.findViewById(R.id.player);
-          // audioPlayerView.withUrl(HelperClass.GET_AUDIO_FILE + currpost.getVoiceFile());
-
-
             final Button btn = (Button) convertView.findViewById(R.id.btnPlay);
             final Button pauseBtn = (Button) convertView.findViewById(R.id.btnPause);
             final SeekBar bar = (SeekBar) convertView.findViewById(R.id.seekBar);
@@ -244,7 +236,7 @@ public class MainActivity extends Activity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showToast("something happedn");
+
                     Uri downloadUri = Uri.parse(HelperClass.GET_AUDIO_FILE + currpost.getVoiceFile());
                     final Uri destinationUri = Uri.parse(getApplicationContext().getExternalCacheDir().toString()+ currpost.getVoiceFile() + ".3gp");
                     DownloadRequest downloadRequest = new DownloadRequest(downloadUri)
