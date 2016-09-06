@@ -79,6 +79,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Intent i = new Intent(MainActivity.this, BuddyList.class);
+        startActivity(i);
+        finish();
+
         myPhoneNumber = getIntent().getExtras().getString("user_phone");
        // showToast(myPhoneNumber);
         client = new AsyncHttpClient();

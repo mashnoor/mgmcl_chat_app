@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,21 +29,61 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BuddyList extends Activity {
 
-    @BindView(R.id.buddyListView)
-    CircleImageView buddyImage;
+    @BindView (R.id.buddyListView) ListView buddyListView;
+
     ArrayList<BuddyClass> buddyList;
 
     AsyncHttpClient client;
+    private void getBuddyList() {
+
+        client.get(HelperClass.GET_FRIENDS + HelperClass.getPhone(BuddyList.this), new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String result = new String(responseBody);
+                //  showToast(result);
+
+                try {
+                    JSONArray all_buddy_array = new JSONArray(result);
+                    for (int i = 0; i<all_buddy_array.length(); i++)
+                    {
+                        JSONObject curr_buddy = all_buddy_array.getJSONObject(i);
+                        BuddyClass tmp_post = new BuddyClass(curr_buddy.getString("user_name"), curr_buddy.getString("user_phone"));
+
+                        buddyList.add(tmp_post);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                BuddyListAdapter adapter = new BuddyListAdapter(getApplicationContext(), buddyList);
+
+                buddyListView.setAdapter(adapter);
+
+
+                Log.d("----------", result);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buddy_list);
+        ButterKnife.bind(this);
 
         client = new AsyncHttpClient();
         buddyList = new ArrayList<>();
@@ -51,6 +92,7 @@ public class BuddyList extends Activity {
 
 
     }
+
 
     public class BuddyListAdapter extends ArrayAdapter<BuddyClass>
     {
@@ -86,45 +128,11 @@ public class BuddyList extends Activity {
                 }
             });
 
+            return  convertView;
+
         }
 
 
-        private void getBuddyList() {
 
-        client.get(HelperClass.GET_FRIENDS + HelperClass.getPhone(BuddyList.this), new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String result = new String(responseBody);
-                //  showToast(result);
-
-                try {
-                    JSONArray all_buddy_array = new JSONArray(result);
-                    for (int i = 0; i<all_buddy_array.length(); i++)
-                    {
-                        JSONObject curr_buddy = all_buddy_array.getJSONObject(i);
-                        BuddyClass tmp_post = new BuddyClass(curr_buddy.getString("user_name"), curr_buddy.getString("user_phone"));
-
-                        buddyList.add(tmp_post);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                BuddyListAdapter adapter = new BuddyListAdapter(getApplicationContext(), buddyList);
-
-                newsFeedList.setAdapter(adapter);
-
-
-                Log.d("----------", result);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
-        });
-
-    }
-
+}
 }
