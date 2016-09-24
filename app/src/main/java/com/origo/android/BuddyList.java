@@ -1,26 +1,20 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
-import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
-import com.google.android.gms.maps.model.Circle;
+import com.bumptech.glide.Glide;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,7 +111,7 @@ public class BuddyList extends Activity {
             buddyName.setText(curr_buddy.getBuddyName());
 
             CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
-            Picasso.with(BuddyList.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
+            Glide.with(BuddyList.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
 
 
             convertView.setOnClickListener(new View.OnClickListener() {

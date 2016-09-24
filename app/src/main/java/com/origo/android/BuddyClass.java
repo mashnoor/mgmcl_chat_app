@@ -1,4 +1,4 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 /**
  * Created by Menon on 8/26/16.

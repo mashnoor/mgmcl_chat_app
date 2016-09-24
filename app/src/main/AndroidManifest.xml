@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chat.chatapp">
+    package="com.origo.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,10 +12,10 @@
     <uses-permission android:name="com.chat.chatapp.permission.permission.MAPS_RECEIVE" />
 
     <permission
-        android:name="com.chat.chatapp.permission.C2D_MESSAGE"
+        android:name="com.origo.android.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <permission
-        android:name="com.chat.chatapp.permission.MAPS_RECEIVE"
+        android:name="com.origo.android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -37,7 +37,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -77,7 +77,7 @@
             android:name="com.package.name"
             android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.origo.android.MainActivity" />
 
         <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
             <intent-filter>
@@ -85,7 +85,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.origo.android.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,13 +97,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.origo.android.MainActivity"
             android:theme="@style/ApplozicTheme">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.origo.android.MainActivity" />
         </activity>
         <activity
             android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"
@@ -163,7 +163,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme"></activity>
+            android:theme="@style/ApplozicTheme" />
         <activity
             android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelInfoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -190,7 +190,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
             android:theme="@style/ApplozicTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
         <service
@@ -226,7 +226,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".BuddyList"></activity>
+        <activity android:name="com.origo.android.BuddyList" />
+        <activity
+            android:name="com.origo.android.Timeline"
+            android:label="@string/title_activity_timeline"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

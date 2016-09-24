@@ -5,8 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="7dp"
+    android:background="@drawable/login_back"
+    android:gravity="center"
 
-    tools:context="com.chat.chatapp.LoginActivity"
+    tools:context="com.origo.android.LoginActivity"
     android:weightSum="1">
 
 
@@ -23,6 +25,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:hint="Your Name"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -38,6 +41,7 @@
         <EditText
             android:id="@+id/etUserPhone"
            android:gravity="center"
+            android:textColor="@color/white"
 
             android:layout_width="match_parent"
             android:hint="Your Phone"
@@ -64,14 +68,21 @@
         android:text="Capture Photo"
         android:layout_gravity="center"
         android:onClick="takephoto"
+        android:background="#0A686C"
+        android:alpha="0.7"
+        android:textColor="@color/white"
         android:id="@+id/btnPhoto" />
 
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="Join!"
+        android:background="#0A686C"
+        android:alpha="0.7"
+        android:textColor="@color/white"
 
         android:onClick="join"/>
 

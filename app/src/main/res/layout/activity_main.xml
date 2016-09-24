@@ -6,77 +6,68 @@
     android:background="@drawable/background"
    android:orientation="vertical"
     android:padding="7dp"
-    tools:context="com.chat.chatapp.MainActivity">
+    tools:context="com.origo.android.MainActivity">
+    <include layout="@layout/header">
+
+    </include>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/my_border"
+
+
+        android:layout_marginBottom="4dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:text="Record and Share!"
-                />
+            android:weightSum="4"
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:padding="7dp"
             android:layout_height="match_parent">
 
-            <Button
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
 
+                android:inputType="textMultiLine"
+                android:hint="Post/Say something..."
+                android:ems="10"
+                android:textColor="@color/white"
+                android:id="@+id/txtPostView" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_weight="1"
+                android:id="@+id/btnRecordStop"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
                 android:onClick="record"
-                android:id="@+id/btn_record"
-               android:text="Record"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Play"
-                android:onClick="play"
-                android:id="@+id/jbejbf"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Share"
-                android:onClick="share"
-                android:id="@+id/button2" />
+                android:src="@drawable/record"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="20dp"
+            android:layout_gravity="end"
+            android:text="Spread"
+            android:background="#0E899A"
+            android:onClick="share"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:text="Record and Share!"
-                android:id="@+id/txtStatus" />
-        </LinearLayout>
+
+            android:id="@+id/button2" />
 
     </LinearLayout>
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="@android:color/darker_gray"/>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/newsfeedListView" />
 
 

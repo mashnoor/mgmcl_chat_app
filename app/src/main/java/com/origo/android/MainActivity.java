@@ -1,34 +1,37 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
+import com.bumptech.glide.Glide;
 import com.github.tamir7.contacts.Contact;
 import com.github.tamir7.contacts.Contacts;
 import com.github.tamir7.contacts.Query;
-import com.hugomatilla.audioplayerview.AudioPlayerView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
+
 import com.thin.downloadmanager.DefaultRetryPolicy;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListener;
@@ -42,6 +45,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,14 +69,17 @@ public class MainActivity extends Activity {
     private String outputFile = null;
     AsyncHttpClient client;
     @BindView(R.id.newsfeedListView) ListView newsFeedList;
-    @BindView(R.id.btn_record) Button record_btn;
-    @BindView(R.id.txtStatus) TextView curretnStatus;
+    //@BindView(R.id.btn_record) Button record_btn;
+
+    @BindView(R.id.btnRecordStop) CircleImageView btnRecordStop;
+    @BindView(R.id.txtPostView) TextView txtPostView;
 
 
 
 
     ArrayList<Post> posts;
      boolean record_mode_on = true;
+    SideBar bar;
 
 
     @Override
@@ -79,11 +87,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Intent i = new Intent(MainActivity.this, BuddyList.class);
-        startActivity(i);
-        finish();
+        bar = new SideBar(this);
 
-        myPhoneNumber = getIntent().getExtras().getString("user_phone");
+        myPhoneNumber = HelperClass.getPhone(this);
        // showToast(myPhoneNumber);
         client = new AsyncHttpClient();
 
@@ -120,7 +126,7 @@ public class MainActivity extends Activity {
                     for (int i = 0; i<all_post_array.length(); i++)
                     {
                         JSONObject curr_post = all_post_array.getJSONObject(i);
-                        Post tmp_post = new Post(curr_post.getString("user_name"), curr_post.getString("number"), curr_post.getString("post_id"), curr_post.getString("time"));
+                        Post tmp_post = new Post(curr_post.getString("user_name"), curr_post.getString("number"), curr_post.getString("post_id"), curr_post.getString("time"), curr_post.getString("txtpost"));
                         showToast(curr_post.getString("user_name"));
                         posts.add(tmp_post);
                     }
@@ -163,21 +169,23 @@ public class MainActivity extends Activity {
 
                 myAudioRecorder.prepare();
                 myAudioRecorder.start();
-                curretnStatus.setText("Recording...");
+
                 record_mode_on = false;
 
                 showToast("Started audio recording");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            record_btn.setText("Stop");
+            btnRecordStop.setImageDrawable(getDrawable(R.drawable.stop));
         }
         else
         {
             myAudioRecorder.stop();
             myAudioRecorder.release();
             myAudioRecorder = null;
-            curretnStatus.setText("");
+
+            btnRecordStop.setImageDrawable(getDrawable(R.drawable.record));
+            record_mode_on = true;
 
         }
 
@@ -202,10 +210,26 @@ public class MainActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
            final Post currpost = getItem(position);
+
             if(convertView==null)
             {
-                convertView = getLayoutInflater().inflate(R.layout.newsfeed, parent, false);
+                convertView = getLayoutInflater().inflate(R.layout.newsfeed, null, false);
+
+                if (!currpost.getTxtPost().equals(""))
+                {
+                    LinearLayout bubbleView = (LinearLayout) convertView.findViewById(R.id.bubbleView);
+                    TextView txt = new TextView(getApplicationContext());
+
+                    txt.setText(currpost.getTxtPost());
+                    txt.setTextColor(Color.WHITE);
+                    txt.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    bubbleView.addView(txt);
+                }
+
+
+
             }
+
 
 
 
@@ -217,14 +241,19 @@ public class MainActivity extends Activity {
             postTime.setText(currpost.getTime());
             CircleImageView imageView = (CircleImageView) convertView.findViewById(R.id.profile_image);
 
-            Picasso.with(getApplicationContext()).load(HelperClass.GET_IMAGE_FILE + currpost.getUserPhone()).into(imageView);
-
 
             final Button btn = (Button) convertView.findViewById(R.id.btnPlay);
             final Button pauseBtn = (Button) convertView.findViewById(R.id.btnPause);
             final SeekBar bar = (SeekBar) convertView.findViewById(R.id.seekBar);
             final TextView pos = (TextView) convertView.findViewById(R.id.txtPos);
 
+
+
+
+
+
+
+            /**
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -235,6 +264,7 @@ public class MainActivity extends Activity {
 
                 }
             });
+             **/
 
 
             btn.setOnClickListener(new View.OnClickListener() {
@@ -252,13 +282,15 @@ public class MainActivity extends Activity {
                                 @Override
                                 public void onDownloadComplete(int id) {
 
-                                    AudioWife wife = new AudioWife();
-                                    wife.init(getApplicationContext(), Uri.parse(getApplicationContext().getExternalCacheDir().toString() + currpost.getVoiceFile() + ".3gp"));
-                                            wife.setPlayView(btn)
-                                            .setPauseView(pauseBtn)
+
+                                        AudioWife wife = new AudioWife();
+                                   wife.init(getApplicationContext(), Uri.parse(getApplicationContext().getExternalCacheDir().toString() + currpost.getVoiceFile() + ".3gp"))
+                                          .setPlayView(btn)
+                                                    .setPauseView(pauseBtn)
                                             .setSeekBar(bar)
-                                            .setRuntimeView(pos);
-                                    wife.play();
+                                            .setRuntimeView(pos).play();
+
+
 
 
 
@@ -297,6 +329,9 @@ public class MainActivity extends Activity {
             });
 
 
+            Glide.with(this.getContext()).load(HelperClass.GET_IMAGE_FILE + currpost.getUserPhone()).into(imageView);
+
+
 
 
             return convertView;
@@ -319,10 +354,36 @@ public class MainActivity extends Activity {
 
     }
 
+private  void uploadRecordedFile()
+{
+
+    RequestParams params = new RequestParams();
+    params.put("txtpost", txtPostView.getText().toString().trim());
+    try {
+        params.put("audio", new File(outputFile));
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    }
+    AsyncHttpClient client = new AsyncHttpClient();
+    client.post(HelperClass.UPLOAD_FILE + myPhoneNumber, params, new AsyncHttpResponseHandler() {
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+            System.out.println("---------- "+statusCode);//statusCode 200
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            System.out.println("---------- "+statusCode);//statusCode 200
+        }
+    });
+
+}
 
 
 
-
+    /***
     private void uploadRecordedFile() {
 
             try {
@@ -336,7 +397,7 @@ public class MainActivity extends Activity {
                 Log.e("AndroidUploadService", exc.getMessage(), exc);
             }
         }
-
+***/
 
     public void play(View v)
     {

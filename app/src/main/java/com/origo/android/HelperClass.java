@@ -1,4 +1,4 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,7 +28,7 @@ public class HelperClass {
 
     public void saveName(Context context, String name)
     {
-        SharedPreferences.Editor editor = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = context.getSharedPreferences("origo", Context.MODE_PRIVATE).edit();
         editor.putString("username", name);
 
         editor.apply();
@@ -37,7 +37,7 @@ public class HelperClass {
 
     public static void savePhone(Context context, String phone)
     {
-        SharedPreferences.Editor editor = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = context.getSharedPreferences("origo", Context.MODE_PRIVATE).edit();
         editor.putString("userphone", phone);
 
         editor.apply();
@@ -45,7 +45,7 @@ public class HelperClass {
 
     public String getName(Context context)
     {
-        SharedPreferences prefs = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("origo", Context.MODE_PRIVATE);
 
 
             String name = prefs.getString("name", "NO");//"No name defined" is the default value.
@@ -56,7 +56,7 @@ public class HelperClass {
 
     public static String getPhone(Context context)
     {
-        SharedPreferences prefs = context.getSharedPreferences("ChatApp", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("origo", Context.MODE_PRIVATE);
 
 
         String phone = prefs.getString("userphone", "NO");//"No name defined" is the default value.

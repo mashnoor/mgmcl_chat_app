@@ -1,4 +1,4 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

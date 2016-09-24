@@ -1,14 +1,13 @@
-package com.chat.chatapp;
+package com.origo.android;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,26 +26,40 @@ import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
 
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LoginActivity extends Activity {
 
 
-    EditText user_name, user_phone;
+
+    @BindView(R.id.etUserName) EditText user_name;
+    @BindView(R.id.etUserPhone) EditText user_phone;
     ImageFileSelector mImageFileSelector;
     AsyncHttpClient client;
     String file_location = null;
     ProgressDialog dialog;
-    CircleImageView profile_pic;
+    @BindView(R.id.profile_image) CircleImageView profile_pic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if(!HelperClass.getPhone(this).equals("NO"))
+        {
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+        ButterKnife.bind(this);
+
+        //Set Hint color of the EditTexts
+        user_name.setHintTextColor(Color.WHITE);
+        user_phone.setHintTextColor(Color.WHITE);
 
         client = new AsyncHttpClient();
-        profile_pic = (CircleImageView) findViewById(R.id.profile_image);
+
         mImageFileSelector =  new ImageFileSelector(this);
         mImageFileSelector.setCallback(new ImageFileSelector.Callback() {
             @Override
@@ -64,8 +77,6 @@ public class LoginActivity extends Activity {
 
 
 
-        user_name = (EditText) findViewById(R.id.etUserName);
-        user_phone = (EditText) findViewById(R.id.etUserPhone);
     }
 
     private void uploadImageFile() {
@@ -157,6 +168,7 @@ public class LoginActivity extends Activity {
                 //showToast("Successfully Added");
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.putExtra("user_phone", user_phone.getText().toString().trim());
+                HelperClass.savePhone(LoginActivity.this, user_phone.getText().toString().trim());
                 dialog.dismiss();
                 startActivity(i);
                 HelperClass.savePhone(LoginActivity.this, user_phone.getText().toString().trim());
