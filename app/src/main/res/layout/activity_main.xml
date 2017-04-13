@@ -6,69 +6,10 @@
     android:background="@drawable/background"
    android:orientation="vertical"
     android:padding="7dp"
-    tools:context="com.origo.android.MainActivity">
+    tools:context="com.origo.android.activities.MainActivity">
     <include layout="@layout/header">
 
     </include>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-
-
-        android:layout_marginBottom="4dp"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:weightSum="4"
-
-            android:layout_height="match_parent">
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-
-                android:inputType="textMultiLine"
-                android:hint="Post/Say something..."
-                android:ems="10"
-                android:textColor="@color/white"
-                android:id="@+id/txtPostView" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_weight="1"
-                android:id="@+id/btnRecordStop"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:onClick="record"
-                android:src="@drawable/record"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
-        </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_gravity="end"
-            android:text="Spread"
-            android:background="#0E899A"
-            android:onClick="share"
-
-
-            android:id="@+id/button2" />
-
-    </LinearLayout>
-    <View
-    android:layout_width="match_parent"
-    android:layout_height="2dp"
-    android:background="@android:color/darker_gray"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/newsfeedListView" />
 
 
 </LinearLayout>

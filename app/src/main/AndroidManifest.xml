@@ -43,7 +43,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.applozic.application.key"
-            android:value="193750bc8b5ae6a72cfc9edef75da4e" /> <!-- Applozic Application Key -->
+            android:value="1508e44ed933201407767945d91c10ff2" /> <!-- Applozic Application Key -->
 
         <meta-data
             android:name="com.applozic.mobicomkit.notification.icon"
@@ -77,7 +77,7 @@
             android:name="com.package.name"
             android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
 
-        <activity android:name="com.origo.android.MainActivity" />
+        <activity android:name="com.origo.android.activities.MainActivity" />
 
         <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
             <intent-filter>
@@ -85,7 +85,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.origo.android.LoginActivity">
+        <activity android:name="com.origo.android.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,13 +97,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName="com.origo.android.MainActivity"
+            android:parentActivityName="com.origo.android.activities.MainActivity"
             android:theme="@style/ApplozicTheme">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.origo.android.MainActivity" />
+                android:value="com.origo.android.activities.MainActivity" />
         </activity>
         <activity
             android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"

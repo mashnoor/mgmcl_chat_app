@@ -2,13 +2,13 @@ package com.origo.android;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.format.DateUtils;
 import android.view.View;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.origo.android.activities.LoginActivity;
 
 /**
  * Created by Menon on 9/8/16.

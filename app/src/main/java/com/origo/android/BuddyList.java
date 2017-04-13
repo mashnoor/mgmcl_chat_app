@@ -11,9 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.origo.android.models.User;
 
 
 import org.json.JSONArray;
@@ -31,41 +33,33 @@ public class BuddyList extends Activity {
 
     @BindView (R.id.buddyListView) ListView buddyListView;
 
-    ArrayList<BuddyClass> buddyList;
+    User users[];
 
     AsyncHttpClient client;
     private void getBuddyList() {
 
-        client.get(HelperClass.GET_FRIENDS + HelperClass.getPhone(BuddyList.this), new AsyncHttpResponseHandler() {
+        client.get(HelperClass.GET_USERS, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String result = new String(responseBody);
                 //  showToast(result);
+                Log.d("--------", result);
 
-                try {
-                    JSONArray all_buddy_array = new JSONArray(result);
-                    for (int i = 0; i<all_buddy_array.length(); i++)
-                    {
-                        JSONObject curr_buddy = all_buddy_array.getJSONObject(i);
-                        BuddyClass tmp_post = new BuddyClass(curr_buddy.getString("user_name"), curr_buddy.getString("user_phone"));
+                Gson userListgson = new GsonBuilder().create();
+                users = userListgson.fromJson(result, User[].class);
 
-                        buddyList.add(tmp_post);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                BuddyListAdapter adapter = new BuddyListAdapter(getApplicationContext(), buddyList);
+                BuddyListAdapter adapter = new BuddyListAdapter(getApplicationContext(), users);
 
                 buddyListView.setAdapter(adapter);
 
 
-                Log.d("----------", result);
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                Log.d("--------", new String(responseBody));
 
             }
         });
@@ -80,7 +74,7 @@ public class BuddyList extends Activity {
         ButterKnife.bind(this);
 
         client = new AsyncHttpClient();
-        buddyList = new ArrayList<>();
+
 
         getBuddyList();
 
@@ -88,10 +82,10 @@ public class BuddyList extends Activity {
     }
 
 
-    public class BuddyListAdapter extends ArrayAdapter<BuddyClass>
+    public class BuddyListAdapter extends ArrayAdapter<User>
     {
-        public BuddyListAdapter(Context context, ArrayList<BuddyClass> buddies) {
-            super(context, 0, buddyList);
+        public BuddyListAdapter(Context context, User[] users) {
+            super(context, 0, users);
         }
 
 
@@ -101,17 +95,17 @@ public class BuddyList extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            final BuddyClass curr_buddy = getItem(position);
+            final User curr_user = getItem(position);
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.buddy_list_like, parent, false);
+                convertView = getLayoutInflater().inflate(R.layout.buddy_row, parent, false);
             }
 
 
             TextView buddyName = (TextView) convertView.findViewById(R.id.buddy_name);
-            buddyName.setText(curr_buddy.getBuddyName());
+            buddyName.setText(curr_user.getName());
 
-            CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
-            Glide.with(BuddyList.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
+            //CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
+           // Glide.with(BuddyList.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
 
 
             convertView.setOnClickListener(new View.OnClickListener() {
