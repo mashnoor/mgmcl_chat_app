@@ -4,9 +4,9 @@ import android.app.Activity;
 
 import android.os.Bundle;
 
-import com.origo.android.HelperClass;
+import com.origo.android.utils.HelperClass;
 import com.origo.android.R;
-import com.origo.android.SideBar;
+import com.origo.android.utils.SideBar;
 
 import butterknife.ButterKnife;
 

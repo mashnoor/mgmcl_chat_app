@@ -1,4 +1,4 @@
-package com.origo.android;
+package com.origo.android.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,21 +15,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.origo.android.utils.HelperClass;
+import com.origo.android.R;
 import com.origo.android.models.User;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BuddyList extends Activity {
+public class UserListActivity extends Activity {
 
     @BindView (R.id.buddyListView) ListView buddyListView;
 
@@ -105,7 +100,7 @@ public class BuddyList extends Activity {
             buddyName.setText(curr_user.getName());
 
             //CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
-           // Glide.with(BuddyList.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
+           // Glide.with(UserListActivity.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
 
 
             convertView.setOnClickListener(new View.OnClickListener() {

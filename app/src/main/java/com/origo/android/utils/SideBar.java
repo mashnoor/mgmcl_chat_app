@@ -1,4 +1,4 @@
-package com.origo.android;
+package com.origo.android.utils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.origo.android.activities.LoginActivity;
+import com.origo.android.activities.UserListActivity;
+import com.origo.android.utils.HelperClass;
 
 /**
  * Created by Menon on 9/8/16.
@@ -31,7 +33,7 @@ public class SideBar {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(position==1)
                         {
-                            Intent i = new Intent(activity, BuddyList.class);
+                            Intent i = new Intent(activity, UserListActivity.class);
                             activity.startActivity(i);
 
 

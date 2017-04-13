@@ -18,7 +18,7 @@ import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.origo.android.HelperClass;
+import com.origo.android.utils.HelperClass;
 import com.origo.android.R;
 
 

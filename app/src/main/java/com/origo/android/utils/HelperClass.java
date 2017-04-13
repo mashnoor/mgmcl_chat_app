@@ -1,4 +1,4 @@
-package com.origo.android;
+package com.origo.android.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -226,11 +226,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.origo.android.BuddyList" />
-        <activity
-            android:name="com.origo.android.Timeline"
-            android:label="@string/title_activity_timeline"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.origo.android.activities.UserListActivity" />
     </application>
 
 </manifest>
