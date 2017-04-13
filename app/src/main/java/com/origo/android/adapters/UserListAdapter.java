@@ -3,6 +3,7 @@ package com.origo.android.adapters;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,22 +12,26 @@ import android.widget.TextView;
 
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.origo.android.Manifest;
 import com.origo.android.R;
 import com.origo.android.models.User;
 
 import org.w3c.dom.Text;
 
-public class UserListAdapter extends ArrayAdapter<User>
-{
+public class UserListAdapter extends ArrayAdapter<User> {
     private Activity activity;
+
     public UserListAdapter(Activity activity, User[] users) {
         super(activity, 0, users);
         this.activity = activity;
+
     }
-
-
-
-
 
 
     @Override
@@ -35,7 +40,7 @@ public class UserListAdapter extends ArrayAdapter<User>
         final User curr_user = getItem(position);
         if (convertView == null) {
             convertView = activity
-            .getLayoutInflater().inflate(R.layout.user_row, parent, false);
+                    .getLayoutInflater().inflate(R.layout.user_row, parent, false);
         }
 
 
@@ -62,13 +67,32 @@ public class UserListAdapter extends ArrayAdapter<User>
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:123456789"));
-                activity.startActivity(callIntent);
+                Dexter.withActivity(activity)
+                        .withPermission(android.Manifest.permission.CALL_PHONE)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:" + curr_user.getPhone()));
+                                activity.startActivity(callIntent);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                            }
+                        })
+                        .check();
+
             }
         });
 
-        return  convertView;
+        return convertView;
 
     }
 }

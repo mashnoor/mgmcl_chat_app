@@ -77,7 +77,7 @@
             android:name="com.package.name"
             android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
 
-        <activity android:name="com.origo.android.activities.MainActivity" />
+        <activity android:name=".activities.MainActivity" />
 
         <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
             <intent-filter>
@@ -85,19 +85,15 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.origo.android.activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activities.LoginActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName="com.origo.android.activities.MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/ApplozicTheme">
 
             <!-- Parent activity meta-data to support API level 7+ -->
@@ -226,7 +222,17 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.origo.android.activities.UserListActivity" />
+        <activity android:name=".activities.UserListActivity" />
+        <activity
+            android:name=".activities.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
