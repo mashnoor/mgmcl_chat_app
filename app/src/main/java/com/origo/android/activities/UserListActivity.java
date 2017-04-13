@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.origo.android.adapters.UserListAdapter;
 import com.origo.android.utils.HelperClass;
 import com.origo.android.R;
 import com.origo.android.models.User;
@@ -31,6 +32,19 @@ public class UserListActivity extends Activity {
     User users[];
 
     AsyncHttpClient client;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_buddy_list);
+        ButterKnife.bind(this);
+
+        client = new AsyncHttpClient();
+        getBuddyList();
+
+
+    }
     private void getBuddyList() {
 
         client.get(HelperClass.GET_USERS, new AsyncHttpResponseHandler() {
@@ -42,9 +56,7 @@ public class UserListActivity extends Activity {
 
                 Gson userListgson = new GsonBuilder().create();
                 users = userListgson.fromJson(result, User[].class);
-
-                BuddyListAdapter adapter = new BuddyListAdapter(getApplicationContext(), users);
-
+                UserListAdapter adapter = new UserListAdapter(UserListActivity.this, users);
                 buddyListView.setAdapter(adapter);
 
 
@@ -62,60 +74,5 @@ public class UserListActivity extends Activity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buddy_list);
-        ButterKnife.bind(this);
 
-        client = new AsyncHttpClient();
-
-
-        getBuddyList();
-
-
-    }
-
-
-    public class BuddyListAdapter extends ArrayAdapter<User>
-    {
-        public BuddyListAdapter(Context context, User[] users) {
-            super(context, 0, users);
-        }
-
-
-
-
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            final User curr_user = getItem(position);
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.buddy_row, parent, false);
-            }
-
-
-            TextView buddyName = (TextView) convertView.findViewById(R.id.buddy_name);
-            buddyName.setText(curr_user.getName());
-
-            //CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
-           // Glide.with(UserListActivity.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
-
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
-
-                }
-            });
-
-            return  convertView;
-
-        }
-
-
-
-}
 }
