@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
@@ -21,6 +22,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.origo.android.Manifest;
 import com.origo.android.R;
 import com.origo.android.models.User;
+import com.origo.android.utils.HelperClass;
 
 import org.w3c.dom.Text;
 
@@ -44,10 +46,18 @@ public class UserListAdapter extends ArrayAdapter<User> {
         }
 
 
-        TextView buddyName = (TextView) convertView.findViewById(R.id.buddy_name);
+        TextView userName = (TextView) convertView.findViewById(R.id.buddy_name);
         Button callButton = (Button) convertView.findViewById(R.id.btnCall);
         Button msgButton = (Button) convertView.findViewById(R.id.btnMessage);
-        buddyName.setText(curr_user.getName());
+        if(curr_user.getPhone().equals(HelperClass.getPhone(activity)))
+        {
+            userName.setText(curr_user.getName() + "(Me)");
+        }
+        else
+        {
+            userName.setText(curr_user.getName());
+        }
+
 
         //CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
         // Glide.with(UserListActivity.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
@@ -56,6 +66,11 @@ public class UserListAdapter extends ArrayAdapter<User> {
         msgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(curr_user.getPhone().equals(HelperClass.getPhone(activity)))
+                {
+                    Toast.makeText(activity, "You can't call yourself!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Intent intent = new Intent(activity, ConversationActivity.class);
                 intent.putExtra(ConversationUIService.USER_ID, curr_user.getPhone().trim());
                 intent.putExtra(ConversationUIService.DISPLAY_NAME, curr_user.getName().trim()); //put it for displaying the title.
@@ -67,11 +82,18 @@ public class UserListAdapter extends ArrayAdapter<User> {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dexter.withActivity(activity)
                         .withPermission(android.Manifest.permission.CALL_PHONE)
                         .withListener(new PermissionListener() {
+
                             @Override
                             public void onPermissionGranted(PermissionGrantedResponse response) {
+                                if(curr_user.getPhone().equals(HelperClass.getPhone(activity)))
+                                {
+                                    Toast.makeText(activity, "You can't message yourself!", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
                                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                                 callIntent.setData(Uri.parse("tel:" + curr_user.getPhone()));
                                 activity.startActivity(callIntent);

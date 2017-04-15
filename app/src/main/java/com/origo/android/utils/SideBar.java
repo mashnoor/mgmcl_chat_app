@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -23,7 +24,7 @@ public class SideBar {
         this.activity = activity;
 
         PrimaryDrawerItem profileItem = new PrimaryDrawerItem().withName("Profile");
-        PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("Buddies");
+        PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("Users");
         PrimaryDrawerItem logoutItem = new PrimaryDrawerItem().withName("Logout");
         PrimaryDrawerItem exit = new PrimaryDrawerItem().withName("Exit");
 
@@ -41,6 +42,7 @@ public class SideBar {
                         if(position==2)
                         {
                             HelperClass.savePhone(activity, "NO");
+                            new UserClientService(activity).logout();
                             Intent i = new Intent(activity, LoginActivity.class);
                             activity.startActivity(i);
                             activity.finish();

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_back"
+
     android:gravity="center"
     android:orientation="vertical"
     android:padding="7dp"
@@ -16,16 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
         <EditText
 
-            android:id="@+id/etUserName"
+            android:id="@+id/etUserPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:hint="Your Name"
-            android:textColor="@color/white" />
+            android:hint="Your Phone"
+            />
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
@@ -35,15 +42,22 @@
         android:layout_height="wrap_content"
 
         android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/etUserPhone"
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
+        <EditText
+            android:id="@+id/etUserpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:gravity="center"
-            android:hint="Your Phone"
-            android:textColor="@color/white" />
+            android:hint="Your Password"
+             />
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
@@ -56,7 +70,7 @@
         android:alpha="0.7"
         android:background="#0A686C"
         android:onClick="join"
-        android:text="Join!"
+        android:text="Login"
 
         android:textColor="@color/white" />
 
