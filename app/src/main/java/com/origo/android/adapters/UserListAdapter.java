@@ -47,8 +47,10 @@ public class UserListAdapter extends ArrayAdapter<User> {
 
 
         TextView userName = (TextView) convertView.findViewById(R.id.buddy_name);
+        TextView designation = (TextView) convertView.findViewById(R.id.txtDesignation);
         Button callButton = (Button) convertView.findViewById(R.id.btnCall);
         Button msgButton = (Button) convertView.findViewById(R.id.btnMessage);
+        designation.setText(curr_user.getDesignation());
         if(curr_user.getPhone().equals(HelperClass.getPhone(activity)))
         {
             userName.setText(curr_user.getName() + "(Me)");
@@ -58,9 +60,6 @@ public class UserListAdapter extends ArrayAdapter<User> {
             userName.setText(curr_user.getName());
         }
 
-
-        //CircleImageView buddyImage = (CircleImageView) convertView.findViewById(R.id.buddy_image);
-        // Glide.with(UserListActivity.this).load(HelperClass.GET_IMAGE_FILE + curr_buddy.getBuddyNumber()).into(buddyImage);
 
 
         msgButton.setOnClickListener(new View.OnClickListener() {

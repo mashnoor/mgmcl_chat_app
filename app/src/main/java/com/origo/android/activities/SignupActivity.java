@@ -4,14 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +50,11 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        if (!HelperClass.getPhone(this).equals("NO")) {
+            Intent i = new Intent(SignupActivity.this, UserListActivity.class);
+            startActivity(i);
+            finish();
+        }
         ButterKnife.bind(this);
 
 
@@ -127,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
                     com.origo.android.models.User loggedInuser = usergson.fromJson(response, com.origo.android.models.User.class);
 
 
-                    Intent i = new Intent(SignupActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignupActivity.this, UserListActivity.class);
                     i.putExtra("user_phone", loggedInuser.getPhone());
                     HelperClass.savePhone(SignupActivity.this, loggedInuser.getPhone());
                     dialog.dismiss();

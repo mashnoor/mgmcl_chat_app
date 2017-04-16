@@ -20,12 +20,20 @@ public class HelperClass {
 
 
 
-    public void saveName(Context context, String name)
+    public void saveUserJson(Context context, String userJson)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences("rajit", Context.MODE_PRIVATE).edit();
-        editor.putString("username", name);
+        editor.putString("userjson", userJson);
 
         editor.apply();
+    }
+    public String getUserJson(Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("rajit", Context.MODE_PRIVATE);
+
+
+        return prefs.getString("userjson", "NO");
+
     }
 
 
@@ -37,15 +45,6 @@ public class HelperClass {
         editor.apply();
     }
 
-    public String getName(Context context)
-    {
-        SharedPreferences prefs = context.getSharedPreferences("rajit", Context.MODE_PRIVATE);
-
-
-            String name = prefs.getString("name", "NO");//"No name defined" is the default value.
-           return name;
-
-    }
 
 
     public static String getPhone(Context context)
@@ -53,8 +52,8 @@ public class HelperClass {
         SharedPreferences prefs = context.getSharedPreferences("rajit", Context.MODE_PRIVATE);
 
 
-        String phone = prefs.getString("userphone", "NO");//"No name defined" is the default value.
-        return phone;
+        return prefs.getString("userphone", "NO");//"No name defined" is the default value.
+
 
     }
 

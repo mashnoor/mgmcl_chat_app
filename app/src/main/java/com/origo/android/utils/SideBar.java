@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.View;
 
 import com.applozic.mobicomkit.api.account.user.UserClientService;
+import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -23,8 +25,8 @@ public class SideBar {
     {
         this.activity = activity;
 
-        PrimaryDrawerItem profileItem = new PrimaryDrawerItem().withName("Profile");
-        PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("Users");
+        PrimaryDrawerItem profileItem = new PrimaryDrawerItem().withName("Open Conversations");
+        PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("User List");
         PrimaryDrawerItem logoutItem = new PrimaryDrawerItem().withName("Logout");
         PrimaryDrawerItem exit = new PrimaryDrawerItem().withName("Exit");
 
@@ -39,13 +41,19 @@ public class SideBar {
 
 
                         }
-                        if(position==2)
+                        else if(position==2)
                         {
                             HelperClass.savePhone(activity, "NO");
                             new UserClientService(activity).logout();
                             Intent i = new Intent(activity, LoginActivity.class);
                             activity.startActivity(i);
                             activity.finish();
+                        }
+                        else if(position==0)
+                        {
+                            Intent intent = new Intent(activity, ConversationActivity.class);
+
+                            activity.startActivity(intent);
                         }
 
                         return false;

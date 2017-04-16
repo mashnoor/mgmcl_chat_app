@@ -15,10 +15,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends Activity {
 
     String myPhoneNumber;
-
-
     SideBar bar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +23,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         bar = new SideBar(this);
-
         myPhoneNumber = HelperClass.getPhone(this);
 
 

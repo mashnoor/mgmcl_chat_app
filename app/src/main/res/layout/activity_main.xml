@@ -3,13 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+
    android:orientation="vertical"
     android:padding="7dp"
     tools:context="com.origo.android.activities.MainActivity">
-    <include layout="@layout/header">
-
-    </include>
 
 
 </LinearLayout>

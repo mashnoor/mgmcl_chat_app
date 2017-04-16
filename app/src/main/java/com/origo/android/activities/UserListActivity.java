@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +14,7 @@ import com.origo.android.adapters.UserListAdapter;
 import com.origo.android.utils.HelperClass;
 import com.origo.android.R;
 import com.origo.android.models.User;
+import com.origo.android.utils.SideBar;
 
 
 import butterknife.BindView;
@@ -27,12 +29,14 @@ public class UserListActivity extends Activity {
 
     AsyncHttpClient client;
 
+    SideBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
         ButterKnife.bind(this);
+        bar = new SideBar(this);
 
         client = new AsyncHttpClient();
         getBuddyList();
@@ -60,7 +64,7 @@ public class UserListActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                Log.d("--------", new String(responseBody));
+                Toast.makeText(UserListActivity.this, "Can't connect to server!", Toast.LENGTH_LONG).show();
 
             }
         });

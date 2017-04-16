@@ -21,6 +21,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.origo.android.R;
 import com.origo.android.utils.HelperClass;
+import com.origo.android.utils.NetChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,19 +44,22 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         if (!HelperClass.getPhone(this).equals("NO")) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            Intent i = new Intent(LoginActivity.this, UserListActivity.class);
             startActivity(i);
             finish();
         }
         ButterKnife.bind(this);
         client = new AsyncHttpClient();
 
-
     }
-
 
     //Handle When Join Button is Pressed
     public void join(View v) {
+        if(!NetChecker.isNetworkOnline(this))
+        {
+            showToast("Can't connect to the internet");
+            return;
+        }
         //Fetch the Name
         if (etUserPhone.getText().toString().equals("")) {
             etUserPhone.setError("Phone can't be blank");
@@ -116,11 +120,10 @@ public class LoginActivity extends Activity {
                 com.origo.android.models.User loggedInuser = usergson.fromJson(response, com.origo.android.models.User.class);
 
 
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                i.putExtra("user_phone", loggedInuser.getPhone());
                 HelperClass.savePhone(LoginActivity.this, loggedInuser.getPhone());
                 dialog.dismiss();
                 addUser(loggedInuser.getPhone(), loggedInuser.getName());
+                Intent i = new Intent(LoginActivity.this, UserListActivity.class);
                 startActivity(i);
             }
 

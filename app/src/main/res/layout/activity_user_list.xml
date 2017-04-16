@@ -6,6 +6,13 @@
     android:padding="7dp"
 
     android:orientation="vertical">
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:text="Registered Users"/>
 
     <ListView
         android:id="@+id/buddyListView"
