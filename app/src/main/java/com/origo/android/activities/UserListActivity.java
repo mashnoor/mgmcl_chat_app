@@ -14,6 +14,7 @@ import com.origo.android.adapters.UserListAdapter;
 import com.origo.android.utils.HelperClass;
 import com.origo.android.R;
 import com.origo.android.models.User;
+import com.origo.android.utils.NetChecker;
 import com.origo.android.utils.SideBar;
 
 
@@ -23,7 +24,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class UserListActivity extends Activity {
 
-    @BindView (R.id.buddyListView) ListView buddyListView;
+    @BindView(R.id.buddyListView)
+    ListView buddyListView;
 
     User users[];
 
@@ -38,11 +40,13 @@ public class UserListActivity extends Activity {
         ButterKnife.bind(this);
         bar = new SideBar(this);
 
+
         client = new AsyncHttpClient();
         getBuddyList();
 
 
     }
+
     private void getBuddyList() {
 
         client.get(HelperClass.GET_USERS, new AsyncHttpResponseHandler() {
@@ -58,7 +62,6 @@ public class UserListActivity extends Activity {
                 buddyListView.setAdapter(adapter);
 
 
-
             }
 
             @Override
@@ -71,6 +74,9 @@ public class UserListActivity extends Activity {
 
     }
 
+    private void showToast(String message) {
+        Toast.makeText(UserListActivity.this, message, Toast.LENGTH_LONG).show();
+    }
 
 
 }

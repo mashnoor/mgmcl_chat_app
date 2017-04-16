@@ -21,16 +21,17 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.origo.android.R;
 import com.origo.android.utils.HelperClass;
+import com.origo.android.utils.NetChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
 
 public class SignupActivity extends AppCompatActivity {
 
-    @BindView(R.id.lblLogin)
-    TextView loginText;
+
     @BindView(R.id.txtName)
     EditText txtName;
     @BindView(R.id.txtPassword)
@@ -50,23 +51,14 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        ButterKnife.bind(this);
         if (!HelperClass.getPhone(this).equals("NO")) {
             Intent i = new Intent(SignupActivity.this, UserListActivity.class);
             startActivity(i);
             finish();
         }
-        ButterKnife.bind(this);
-
-
     }
-
-    @OnClick(R.id.lblLogin)
-    public void goTologin() {
-        Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-        startActivity(i);
-
-    }
-
 
     private void addUser(String userid, String userName) {
         UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
@@ -92,9 +84,14 @@ public class SignupActivity extends AppCompatActivity {
         new UserLoginTask(user, listener, this).execute((Void) null);
     }
 
-
     @OnClick(R.id.btnSignup)
     public void signup() {
+        if(!NetChecker.isNetworkAvailable(this))
+        {
+            showToast("Can't connect to server");
+            return;
+        }
+
         dialog = new ProgressDialog(SignupActivity.this);
         dialog.setMessage("Creating account. Please wait ...");
         dialog.show();
@@ -104,6 +101,21 @@ public class SignupActivity extends AppCompatActivity {
         String designation = txtDesignation.getText().toString().trim();
         String idNo = txtIdNo.getText().toString().trim();
         String phone = txtPhone.getText().toString().trim();
+        if(TextUtils.isEmpty(name))
+        {
+            txtName.setError("Name can't be empty");
+            return;
+        }
+        if(TextUtils.isEmpty(password))
+        {
+            txtPassword.setError("Password can't be empty");
+            return;
+        }
+        if(TextUtils.isEmpty(phone))
+        {
+            txtPhone.setError("Phone can't be empty");
+            return;
+        }
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("user_name", name);
@@ -133,6 +145,7 @@ public class SignupActivity extends AppCompatActivity {
                     dialog.dismiss();
                     addUser(loggedInuser.getPhone(), loggedInuser.getName());
                     startActivity(i);
+                    finish();
                 }
 
 
@@ -151,5 +164,4 @@ public class SignupActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(SignupActivity.this, message, Toast.LENGTH_LONG).show();
     }
-
 }

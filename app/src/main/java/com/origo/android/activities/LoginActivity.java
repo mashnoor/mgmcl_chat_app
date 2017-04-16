@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
@@ -25,9 +26,11 @@ import com.origo.android.utils.NetChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activity {
+
 
 
     @BindView(R.id.etUserPhone)
@@ -55,11 +58,12 @@ public class LoginActivity extends Activity {
 
     //Handle When Join Button is Pressed
     public void join(View v) {
-        if(!NetChecker.isNetworkOnline(this))
+        if(!NetChecker.isNetworkAvailable(this))
         {
-            showToast("Can't connect to the internet");
+            showToast("Can't connect to server");
             return;
         }
+
         //Fetch the Name
         if (etUserPhone.getText().toString().equals("")) {
             etUserPhone.setError("Phone can't be blank");
@@ -130,8 +134,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String response = new String(responseBody);
-                Log.d("--------", response);
+
                 dialog.dismiss();
                 showToast("Can't connect to server");
             }
@@ -143,6 +146,13 @@ public class LoginActivity extends Activity {
 
     public void showToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.lblSignup)
+    public void gotosignup()
+    {
+        Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(i);
     }
 
 
