@@ -11,6 +11,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.origo.android.activities.AboutActivity;
 import com.origo.android.activities.LoginActivity;
 import com.origo.android.activities.UserListActivity;
 import com.origo.android.utils.HelperClass;
@@ -28,10 +29,11 @@ public class SideBar {
         PrimaryDrawerItem profileItem = new PrimaryDrawerItem().withName("Open Conversations");
         PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("User List");
         PrimaryDrawerItem logoutItem = new PrimaryDrawerItem().withName("Logout");
+        PrimaryDrawerItem atg = new PrimaryDrawerItem().withName("At a glance MGMCL");
         PrimaryDrawerItem exit = new PrimaryDrawerItem().withName("Exit");
 
         final Drawer drawer = new DrawerBuilder().withActivity(activity)
-                .addDrawerItems(profileItem, buddyItem, logoutItem, exit).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                .addDrawerItems(profileItem, buddyItem, atg, logoutItem, exit).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(position==1)
@@ -41,7 +43,7 @@ public class SideBar {
 
 
                         }
-                        else if(position==2)
+                        else if(position==3)
                         {
                             HelperClass.savePhone(activity, "NO");
                             new UserClientService(activity).logout();
@@ -54,6 +56,11 @@ public class SideBar {
                             Intent intent = new Intent(activity, ConversationActivity.class);
 
                             activity.startActivity(intent);
+                        }
+                        else if(position==2)
+                        {
+                            Intent i = new Intent(activity, AboutActivity.class);
+                            activity.startActivity(i);
                         }
 
                         return false;
