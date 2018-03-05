@@ -1,14 +1,12 @@
-package com.origo.android.activities;
+package com.rajit.android.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
@@ -20,9 +18,9 @@ import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.origo.android.R;
-import com.origo.android.utils.HelperClass;
-import com.origo.android.utils.NetChecker;
+import com.rajit.android.R;
+import com.rajit.android.utils.HelperClass;
+import com.rajit.android.utils.NetChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,7 +119,7 @@ public class LoginActivity extends Activity {
                 }
 
                 Gson usergson = new GsonBuilder().create();
-                com.origo.android.models.User loggedInuser = usergson.fromJson(response, com.origo.android.models.User.class);
+                com.rajit.android.models.User loggedInuser = usergson.fromJson(response, com.rajit.android.models.User.class);
 
 
                 HelperClass.savePhone(LoginActivity.this, loggedInuser.getPhone());

@@ -1,12 +1,12 @@
-package com.origo.android.activities;
+package com.rajit.android.activities;
 
 import android.app.Activity;
 
 import android.os.Bundle;
 
-import com.origo.android.utils.HelperClass;
-import com.origo.android.R;
-import com.origo.android.utils.SideBar;
+import com.rajit.android.utils.HelperClass;
+import com.rajit.android.R;
+import com.rajit.android.utils.SideBar;
 
 import butterknife.ButterKnife;
 

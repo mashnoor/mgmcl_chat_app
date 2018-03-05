@@ -1,20 +1,18 @@
-package com.origo.android.utils;
+package com.rajit.android.utils;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
 import com.applozic.mobicomkit.api.account.user.UserClientService;
-import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.origo.android.activities.AboutActivity;
-import com.origo.android.activities.LoginActivity;
-import com.origo.android.activities.UserListActivity;
-import com.origo.android.utils.HelperClass;
+import com.rajit.android.activities.AboutActivity;
+import com.rajit.android.activities.LoginActivity;
+import com.rajit.android.activities.UserListActivity;
 
 /**
  * Created by Menon on 9/8/16.
@@ -32,8 +30,8 @@ public class SideBar {
         PrimaryDrawerItem atg = new PrimaryDrawerItem().withName("At a glance MGMCL");
         PrimaryDrawerItem exit = new PrimaryDrawerItem().withName("Exit");
 
-        final Drawer drawer = new DrawerBuilder().withActivity(activity)
-                .addDrawerItems(profileItem, buddyItem, atg, logoutItem, exit).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+       new DrawerBuilder().withActivity(activity)
+                .addDrawerItems(profileItem, buddyItem, atg, logoutItem).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(position==1)

@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     packagingOptions
             {
@@ -17,8 +17,8 @@ android {
             }
 
     defaultConfig {
-        applicationId "com.origo.android"
-        minSdkVersion 21
+        applicationId "com.rajit.android"
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

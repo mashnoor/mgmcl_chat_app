@@ -1,4 +1,4 @@
-package com.origo.android.activities;
+package com.rajit.android.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
@@ -19,9 +18,9 @@ import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.origo.android.R;
-import com.origo.android.utils.HelperClass;
-import com.origo.android.utils.NetChecker;
+import com.rajit.android.R;
+import com.rajit.android.utils.HelperClass;
+import com.rajit.android.utils.NetChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +93,7 @@ public class SignupActivity extends AppCompatActivity {
 
         dialog = new ProgressDialog(SignupActivity.this);
         dialog.setMessage("Creating account. Please wait ...");
-        dialog.show();
+
         String name = txtName.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
         String nickname = txtNickname.getText().toString().trim();
@@ -116,6 +115,11 @@ public class SignupActivity extends AppCompatActivity {
             txtPhone.setError("Phone can't be empty");
             return;
         }
+        if(TextUtils.isEmpty(designation))
+        {
+            txtDesignation.setError("Designation can't be empty");
+            return;
+        }
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("user_name", name);
@@ -125,6 +129,12 @@ public class SignupActivity extends AppCompatActivity {
         params.put("user_id_no", idNo);
         params.put("user_phone", phone);
         client.post(HelperClass.SIGNUP, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog.show();
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
@@ -136,7 +146,7 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     dialog.dismiss();
                     Gson usergson = new GsonBuilder().create();
-                    com.origo.android.models.User loggedInuser = usergson.fromJson(response, com.origo.android.models.User.class);
+                    com.rajit.android.models.User loggedInuser = usergson.fromJson(response, com.rajit.android.models.User.class);
 
 
                     Intent i = new Intent(SignupActivity.this, UserListActivity.class);

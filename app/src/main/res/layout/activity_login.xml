@@ -9,7 +9,7 @@
     android:padding="7dp"
 
     android:weightSum="1"
-    tools:context="com.origo.android.activities.LoginActivity">
+    tools:context="com.rajit.android.activities.LoginActivity">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"

@@ -6,7 +6,7 @@
 
    android:orientation="vertical"
     android:padding="7dp"
-    tools:context="com.origo.android.activities.MainActivity">
+    tools:context="com.rajit.android.activities.MainActivity">
 
 
 </LinearLayout>

@@ -1,8 +1,7 @@
-package com.origo.android.utils;
+package com.rajit.android.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.StringBuilderPrinter;
 
 /**
  * Created by Menon on 7/24/16.
@@ -50,7 +49,6 @@ public class HelperClass {
     public static String getPhone(Context context)
     {
         SharedPreferences prefs = context.getSharedPreferences("rajit", Context.MODE_PRIVATE);
-
 
         return prefs.getString("userphone", "NO");//"No name defined" is the default value.
 

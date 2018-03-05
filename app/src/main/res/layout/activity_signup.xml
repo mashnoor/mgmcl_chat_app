@@ -30,7 +30,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Name (required)"
                 android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="Password (required)"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Nickname Label -->
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="Designation"/>
+                android:hint="Designation (required)"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Id No Label -->
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="Phone"/>
+                android:hint="Phone (required)"/>
         </android.support.design.widget.TextInputLayout>
 
 

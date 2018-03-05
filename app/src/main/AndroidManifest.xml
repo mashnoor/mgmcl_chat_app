@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.origo.android">
+    package="com.rajit.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,10 +12,10 @@
     <uses-permission android:name="com.chat.chatapp.permission.permission.MAPS_RECEIVE" />
 
     <permission
-        android:name="com.origo.android.permission.C2D_MESSAGE"
+        android:name="com.rajit.android.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <permission
-        android:name="com.origo.android.permission.MAPS_RECEIVE"
+        android:name="com.rajit.android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -38,7 +38,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/app_name"
+        android:label="RajIT Chat App"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -77,7 +77,7 @@
             android:name="com.package.name"
             android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
 
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name="com.rajit.android.activities.MainActivity" />
 
         <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
             <intent-filter>
@@ -86,7 +86,7 @@
         </receiver>
 
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.rajit.android.activities.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -99,13 +99,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName="com.rajit.android.activities.MainActivity"
             android:theme="@style/ApplozicTheme">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.origo.android.activities.MainActivity" />
+                android:value="com.rajit.android.activities.MainActivity" />
         </activity>
         <activity
             android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"
@@ -228,14 +228,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.UserListActivity" />
+        <activity android:name="com.rajit.android.activities.UserListActivity" />
         <activity
-            android:name=".activities.SignupActivity"
+            android:name="com.rajit.android.activities.SignupActivity"
             android:label="@string/title_activity_signup"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.AboutActivity"
+            android:name="com.rajit.android.activities.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

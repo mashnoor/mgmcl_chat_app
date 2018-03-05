@@ -1,4 +1,4 @@
-package com.origo.android.models;
+package com.rajit.android.models;
 
 /**
  * Created by rajit on 4/12/17.
