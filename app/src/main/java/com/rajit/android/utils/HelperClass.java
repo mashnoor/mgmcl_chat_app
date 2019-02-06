@@ -10,12 +10,13 @@ public class HelperClass {
 
 
     //Constants
-    final public static String BASE_URL = "http://192.163.255.182/api/";
-    final public static String LOGIN =  BASE_URL + "login/";
+    final public static String BASE_URL = "http://139.162.34.55:5009/api/";
+    final public static String LOGIN =  "http://139.162.34.55:5009/api/login";
 
-    final public static String GET_USERS = "http://192.163.255.182/api/users/";
+    final public static String GET_USERS = BASE_URL + "users/";
 
-    final public static String SIGNUP = BASE_URL + "signup/";
+    final public static String SIGNUP = "http://139.162.34.55:5009/api/signup";
+    final public static String GET_ITEMS = "http://139.162.34.55:5009/api/getitems";
 
 
 

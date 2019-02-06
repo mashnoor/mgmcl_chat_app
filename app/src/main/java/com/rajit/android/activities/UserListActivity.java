@@ -12,12 +12,20 @@ import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.rajit.android.adapters.UserListAdapter;
+import com.rajit.android.adapters.UserListAdapterAnother;
 import com.rajit.android.utils.HelperClass;
 import com.rajit.android.R;
 import com.rajit.android.models.User;
 import com.rajit.android.utils.SideBar;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
@@ -25,7 +33,7 @@ import cz.msebera.android.httpclient.Header;
 public class UserListActivity extends Activity {
 
     @BindView(R.id.buddyListView)
-    ListView buddyListView;
+    RecyclerView buddyListView;
 
     User users[];
 
@@ -69,7 +77,10 @@ public class UserListActivity extends Activity {
 
                 Gson userListgson = new GsonBuilder().create();
                 users = userListgson.fromJson(result, User[].class);
-                UserListAdapter adapter = new UserListAdapter(UserListActivity.this, users);
+                List<User> usersList = Arrays.asList(users);
+                UserListAdapterAnother adapter = new UserListAdapterAnother(UserListActivity.this, usersList);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                buddyListView.setLayoutManager(mLayoutManager);
                 buddyListView.setAdapter(adapter);
 
             }

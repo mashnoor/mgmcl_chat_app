@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,7 +29,6 @@ import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activity {
-
 
 
     @BindView(R.id.etUserPhone)
@@ -56,8 +56,7 @@ public class LoginActivity extends Activity {
 
     //Handle When Join Button is Pressed
     public void join(View v) {
-        if(!NetChecker.isNetworkAvailable(this))
-        {
+        if (!NetChecker.isNetworkAvailable(this)) {
             showToast("Can't connect to server");
             return;
         }
@@ -127,11 +126,15 @@ public class LoginActivity extends Activity {
                 addUser(loggedInuser.getPhone(), loggedInuser.getName());
                 Intent i = new Intent(LoginActivity.this, UserListActivity.class);
                 startActivity(i);
+                finish();
             }
 
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                showToast(error.getMessage());
+                Log.d("-------------", new String(responseBody));
 
                 dialog.dismiss();
                 showToast("Can't connect to server");
@@ -147,8 +150,7 @@ public class LoginActivity extends Activity {
     }
 
     @OnClick(R.id.lblSignup)
-    public void gotosignup()
-    {
+    public void gotosignup() {
         Intent i = new Intent(LoginActivity.this, SignupActivity.class);
         startActivity(i);
     }

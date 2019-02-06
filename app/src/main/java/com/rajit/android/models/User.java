@@ -14,6 +14,7 @@ public class User {
     private String phone;
     private String created_at;
     private String updated_at;
+    private String imageurl;
 
     public User(String id, String name, String password, String nickname, String designation, String id_no, String phone, String created_at, String updated_at) {
 
@@ -98,5 +99,9 @@ public class User {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getImageurl() {
+        return imageurl;
     }
 }
