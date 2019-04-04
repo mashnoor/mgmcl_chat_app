@@ -6,13 +6,27 @@
     android:padding="7dp"
 
     android:orientation="vertical">
-    <TextView
-        android:textSize="20sp"
-        android:gravity="center"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:text="Registered Users"/>
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/menu"
+            android:onClick="openDrawer"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Registered Users"/>
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/buddyListView"

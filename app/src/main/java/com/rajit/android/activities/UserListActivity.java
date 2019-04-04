@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.rajit.android.adapters.UserListAdapter;
 import com.rajit.android.adapters.UserListAdapterAnother;
 import com.rajit.android.utils.HelperClass;
 import com.rajit.android.R;
@@ -19,8 +18,6 @@ import com.rajit.android.models.User;
 import com.rajit.android.utils.SideBar;
 
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -96,6 +93,11 @@ public class UserListActivity extends Activity {
     }
     private void showToast(String message) {
         Toast.makeText(UserListActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    public void openDrawer(View v)
+    {
+        SideBar.openDrawer();
     }
 
 

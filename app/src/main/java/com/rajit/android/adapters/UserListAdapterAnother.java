@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.karumi.dexter.Dexter;
@@ -41,8 +42,8 @@ public class UserListAdapterAnother extends BaseQuickAdapter<User, BaseViewHolde
 
         holder.setText(R.id.txtDesignation, user.getDesignation());
 
-        Button callButton = holder.getView(R.id.btnCall);
-        callButton.setOnClickListener(new View.OnClickListener() {
+        Button msgButton = holder.getView(R.id.btnMessage);
+        msgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (user.getPhone().equals(HelperClass.getPhone(activity))) {
@@ -58,9 +59,9 @@ public class UserListAdapterAnother extends BaseQuickAdapter<User, BaseViewHolde
             }
         });
 
-        Button msgButton = holder.getView(R.id.btnMessage);
 
-        msgButton.setOnClickListener(new View.OnClickListener() {
+        Button callButton = holder.getView(R.id.btnCall);
+        callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -96,6 +97,7 @@ public class UserListAdapterAnother extends BaseQuickAdapter<User, BaseViewHolde
         });
 
         CircleImageView buddyImage = holder.getView(R.id.buddy_image);
+        buddyImage.setImageDrawable(activity.getResources().getDrawable(R.drawable.no_image));
 
         if(user.getImageurl() !=null)
         {

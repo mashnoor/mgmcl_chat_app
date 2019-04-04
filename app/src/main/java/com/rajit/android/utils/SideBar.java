@@ -20,6 +20,7 @@ import com.rajit.android.activities.UserListActivity;
 public class SideBar {
 
     Activity activity;
+    public static Drawer d;
     public SideBar(final Activity activity)
     {
         this.activity = activity;
@@ -27,10 +28,10 @@ public class SideBar {
         PrimaryDrawerItem profileItem = new PrimaryDrawerItem().withName("Open Conversations");
         PrimaryDrawerItem buddyItem = new PrimaryDrawerItem().withName("User List");
         PrimaryDrawerItem logoutItem = new PrimaryDrawerItem().withName("Logout");
-        PrimaryDrawerItem atg = new PrimaryDrawerItem().withName("At a glance MGMCL");
+        PrimaryDrawerItem atg = new PrimaryDrawerItem().withName("Other Information");
         PrimaryDrawerItem exit = new PrimaryDrawerItem().withName("Exit");
 
-       new DrawerBuilder().withActivity(activity)
+       d = new DrawerBuilder().withActivity(activity)
                 .addDrawerItems(profileItem, buddyItem, atg, logoutItem).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -66,6 +67,11 @@ public class SideBar {
                 }).build();
 
 
+    }
+
+    public static void openDrawer()
+    {
+        d.openDrawer();
     }
 
 

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:layout_marginBottom="10dp"
-        android:text="At a Glance of Maddhapara Granite Mine"/>
+        android:text="Other Information"/>
     <ListView
         android:id="@+id/lvAtAGlance"
         android:layout_width="match_parent"

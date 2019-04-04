@@ -256,6 +256,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1febdef9320a33a31effcd944c9919d3f2806261" />
     </application>
 
 </manifest>
